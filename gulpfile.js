@@ -10,6 +10,8 @@ var path = require("path");
 
 var fs = require("fs");
 
+var data=require("data/data.json")
+
 gulp.task("server", function() {
     gulp.src("src")
         .pipe(server({
@@ -19,8 +21,11 @@ gulp.task("server", function() {
                 if (pathname === "/favicon.ico") {
                     return false
                 }
+                /*if(pathname==="/api/list"){
+                   res.end(JSON.stringify(data))
+                }*/
+                pathname=pathname==="/"?"/index.html":pathname;
+                res.end(fs.readFileSync(path.join(__dirname,"src",pathname)))
             }
-
-
         }))
 })
